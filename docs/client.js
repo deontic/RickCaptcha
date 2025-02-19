@@ -64,10 +64,10 @@ for (let el of elements) {
   el.onclick = () => {
     if (el.innerHTML === correct) {
       document.getElementById("caption").textContent =
-        "You chose wrong... too bad";
+        "You chose wrong... too bad.";
       setTimeout(() => {
         window.location.href = correct;
-      }, 2);
+      }, 1400);
     } else {
       advance();
     }
@@ -212,7 +212,7 @@ document.getElementById("verify1").onclick = () => {
         "You arranged the images incorrectly! ";
       setInterval(() => {
         window.location.href = correct;
-      }, 2000);
+      }, 1600);
       return;
     }
   }
@@ -240,7 +240,7 @@ document.getElementById("verify1").onclick = () => {
       clearInterval(counter);
       counter = null;
       document.getElementById("info").textContent =
-        "you should have waited before clicking verify.";
+        "You should have waited before clicking verify. Now watch forever.";
       du.textContent = "duration left: ∞";
     }
   };
