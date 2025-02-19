@@ -257,6 +257,7 @@ document.getElementById('verify1').onclick = () => {
 			video.style.filter = 'saturate(8)';
 			clearInterval(counter);
 			counter = null;
+			document.getElementById('info').textContent = 'you should have waited before clicking verify.'; 
 			du.textContent = 'duration left: ∞';
 		}
 	};
