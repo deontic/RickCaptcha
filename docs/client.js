@@ -66,7 +66,11 @@ for (let el of elements) {
 	el.onclick = () => {
 		// console.log(el.innerHTML);
 		if (el.innerHTML === correct) {
-			window.location.href = correct;
+			document.getElementById('caption').textContent = 'You chose wrong... too bad';
+			setTimeout(() => {
+				window.location.href = correct;
+			}
+			, 2);
 		} else {
 			advance();
 		}
