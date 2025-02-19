@@ -1,9 +1,4 @@
-const paramsString = window.location.href;
-const searchParams = new URLSearchParams(paramsString);
-const url =
-  window.location.protocol + "//" + window.location.hostname + "/?redirect";
-const redirectUrl = searchParams.get(url);
-
+const redirectUrl = window.location.href.split("?redirect=")[1];
 const container = document.getElementById("container");
 let target = document.getElementById("title");
 
@@ -30,7 +25,6 @@ const correct = "https://www.youtube.com/watch?v=a3Z7zEc7AXQ";
 let c = document.createElement("button");
 c.type = "button";
 c.textContent = correct;
-
 
 let append = (parent, e) => {
   parent.insertAdjacentElement("afterend", e);
@@ -189,8 +183,8 @@ let onAudioShouldBeEnded = () => {
     setTimeout(() => {
       window.location.href = redirectUrl;
     }, 1200);
-  }else{
-	button2.textContent += " but no redirect url was specified";
+  } else {
+    button2.textContent += " but no redirect url was specified";
   }
 };
 document.getElementById("verify1").onclick = () => {
