@@ -222,7 +222,7 @@ document.getElementById("verify1").onclick = () => {
 
   video.play();
   button2.onclick = () => {
-    if (audio.currentTime < 60) {
+    if (audio.currentTime < 30) {
       // display 60 hours now
       video.loop = "true";
       audio.loop = "true";
@@ -240,7 +240,7 @@ document.getElementById("verify1").onclick = () => {
   };
 };
 
-let num = 61;
+let num = 31;
 counter = setInterval(() => {
   if (num === 0) {
     clearInterval(counter);
