@@ -1,4 +1,7 @@
-const redirectUrl = window.location.href.split("?redirect=")[1];
+let redirectUrl = window.location.href.split("?redirect=")[1];
+if(redirectUrl){
+	redirectUrl = decodeURIComponent(redirectUrl);
+}
 const container = document.getElementById("container");
 let target = document.getElementById("title");
 
