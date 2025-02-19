@@ -3,18 +3,28 @@ let searchParams = new URLSearchParams(paramsString);
 let url =
 	window.location.protocol + '//' + window.location.hostname + '/?redirect';
 let redirectUrl = searchParams.get(url);
-console.log(redirectUrl);
 
 const container = document.getElementById('container');
 let target = document.getElementById('title');
 
+function generateCode() {
+	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	let code = '';
+	for (let i = 0; i < 9; i++) {
+		code += chars.charAt((Math.random() * chars.length)>>>0);
+	}
+	return code;
+}
+
 let a = document.createElement('button');
 a.type = 'button';
-a.textContent = 'https://www.youtube.com/watch?v=a3Z7zEc5AXQ';
+a.textContent = `https://www.youtube.com/watch?v=a${generateCode()}Q`;
+
+
 
 let b = document.createElement('button');
 b.type = 'button';
-b.textContent = 'https://www.youtube.com/watch?v=a3Z5zEc7AXQ';
+b.textContent = `https://www.youtube.com/watch?v=a${generateCode()}Q`;
 
 const correct = 'https://www.youtube.com/watch?v=a3Z7zEc7AXQ';
 
@@ -56,7 +66,6 @@ for (let el of elements) {
 	el.onclick = () => {
 		// console.log(el.innerHTML);
 		if (el.innerHTML === correct) {
-			// console.log('yep');
 			window.location.href = correct;
 		} else {
 			advance();
@@ -76,12 +85,31 @@ let advance = () => {
 	for (el of [a, b, c]) {
 		el.parentNode.removeChild(el);
 	}
+	const caption = document.getElementById('caption')
+	caption.parentNode.removeChild(caption);
 
+	
 	let d = document.getElementById('second');
-
 	d.style.position = 'relative';
 	d.style.visibility = 'visible';
 	d.style.top = '0px';
+
+	// shuffle the images
+	const i1 = document.createElement('img');
+	i1.src = 'images/0.png';
+	const i2 = document.createElement('img');
+	i2.src = 'images/1.png';
+	const i3 = document.createElement('img');
+	i3.src = 'images/2.png';
+
+	const second = document.getElementById('second');
+	let shuffledImages = shuffle([i1, i2, i3]);
+	console.log(shuffledImages);
+	for (const img of shuffledImages) {
+		second.appendChild(img);
+	}
+	
+	
 
 	let imgElements = document.getElementsByTagName('img');
 
@@ -90,11 +118,8 @@ let advance = () => {
 	for (let img of imgElements) {
 		img.draggable = 'true';
 		img.style.cursor = 'move';
-
-		// var dragElement;
-
+		
 		// swap el positions
-
 		// https://stackoverflow.com/a/52446165/14738189
 		function swapElements(el1, el2) {
 			let prev1 = el1.previousSibling;
@@ -181,28 +206,27 @@ document.getElementById('verify1').onclick = () => {
 	// check order
 	let imgElements = document.getElementsByTagName('img');
 	let order = {
-		'https://i.imgur.com/9Rs8KhN.png': 0, // 1
-		'https://i.imgur.com/sou8MWy.png': 1, // 2
-		'https://i.imgur.com/nSW7SyQ.png': 2, // 3
+		'images/0.png': 0, // 1
+		'images/1.png': 1, // 2
+		'images/2.png': 2, // 3
 	};
+
 
 	// let correct = false;
 	// in order; first to last as visible
 	for (let i = 0; i < 3; ++i) {
 		// console.log(imgElements[i].src);
 		let img = imgElements[i];
-		if (i !== order[img.src]) {
-			console.log('incorrect');
-			console.log(i, ' !== ', order[img.src]);
+		if (!img.src.includes(`${i}.png`)) {
 			window.location.href = correct;
 			return;
 		}
 	}
-
 	// if it was correct
+	// check what was intended url by extracting from url
+	// our_url/?redirec
 
 	second.parentNode.removeChild(second);
-
 	let d = document.getElementById('third');
 	d.style.position = 'relative';
 	d.style.visibility = 'visible';
@@ -233,7 +257,7 @@ document.getElementById('verify1').onclick = () => {
 			video.style.filter = 'saturate(8)';
 			clearInterval(counter);
 			counter = null;
-			du.textContent = '∞';
+			du.textContent = 'duration left: ∞';
 		}
 	};
 };
